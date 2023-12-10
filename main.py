@@ -1,14 +1,18 @@
 import telebot
 from pytube import YouTube
 
+"телеграм бот для скачивания видео с youtube"
+
 token="6900428753:AAGlan5-Mi73Q2JftS3i30d0Ho1iCZWY2U8"
 
 
 
 def telegram_bot(token):
+    "функция телеграм бота"
     bot = telebot.TeleBot(token)
 
     def download_video(ref):
+        "функция скачивания видео"
         yt = YouTube(ref)
         print('title: ', yt.title)
         print('Views: ', yt.views)
@@ -17,9 +21,11 @@ def telegram_bot(token):
 
     @bot.message_handler(commands=["start"])
     def start_message(message):
+        "стартовая функция"
         bot.send_message(message.chat.id, "Hello!")
 
     @bot.message_handler(content_types=["text"])
+    "функция обработки входящих сообщений"
     def send_text(message):
         tmp_ref = message.text
         if message.text == "test":
