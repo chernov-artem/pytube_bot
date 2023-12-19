@@ -11,9 +11,11 @@ def telegram_bot(token):
     "функция телеграм бота"
     bot = telebot.TeleBot(token)
 
-    def download_video(ref):
+    def download_video(ref, use_oauth=True,
+        allow_oauth_cache=True):
         "функция скачивания видео"
-        yt = YouTube(ref)
+        yt = YouTube(ref, use_oauth=False,
+        allow_oauth_cache=True)
         print('title: ', yt.title)
         print('Views: ', yt.views)
         print('Streams: ', yt.streams)
@@ -25,8 +27,8 @@ def telegram_bot(token):
         bot.send_message(message.chat.id, "Hello!")
 
     @bot.message_handler(content_types=["text"])
-    "функция обработки входящих сообщений"
     def send_text(message):
+        "функция обработки входящих сообщений"
         tmp_ref = message.text
         if message.text == "test":
             bot.send_message(message.chat.id, "test ok")
